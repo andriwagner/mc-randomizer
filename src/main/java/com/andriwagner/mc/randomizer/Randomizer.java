@@ -1,5 +1,6 @@
 package com.andriwagner.mc.randomizer;
 
+import com.andriwagner.mc.randomizer.event.BlockEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -7,16 +8,12 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
-import net.minecraft.world.level.gamerules.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,46 +44,30 @@ public class Randomizer implements ModInitializer {
 			randomizeBlockDrops(server.overworld().getSeed());
 		});
 
-		// Block break event
-		PlayerBlockBreakEvents.BEFORE.register((level, player, blockPos , blockState, blockEntity) -> {
+		// Player block break event
+		PlayerBlockBreakEvents.BEFORE.register((level, player, pos , state, blockEntity) -> {
 			if (level.isClientSide())
 				return true; // Pass event
 
 			ServerLevel serverLevel = (ServerLevel)level;
-
-			// Check game rules
-			boolean blockDropsGameRule = serverLevel.getGameRules().get(GameRules.BLOCK_DROPS);
 			boolean randomizeBlockDropsGameRule = serverLevel.getGameRules().get(Randomizer.RANDOMIZE_BLOCK_DROPS_BOOLEAN_GAMERULE);
 			boolean creativeModeDropsGameRule = serverLevel.getGameRules().get(Randomizer.CREATIVE_MODE_DROPS_BOOLEAN_GAMERULE);
 
-			if (!blockDropsGameRule || !randomizeBlockDropsGameRule)
-				return true; // Pass event
+			if (randomizeBlockDropsGameRule && creativeModeDropsGameRule && Objects.requireNonNull(player.gameMode()).isCreative())
+				state.getBlock().playerDestroy(level, player, pos, state, blockEntity, player.getUseItem());
 
-			if (!creativeModeDropsGameRule && Objects.requireNonNull(player.gameMode()).isCreative())
-				return true; // Pass event
-
-			// Destroy block
-			level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
-
-			// Drop item
-			ItemStack drop = new ItemStack(blockDrops.getOrDefault(blockState.getBlock(), null));
-			ItemEntity itemEntity = new ItemEntity(
-					serverLevel,
-					blockPos.getX() + 0.5, // X coordinate (center of block)
-					blockPos.getY() + 0.5, // Y coordinate (center of block)
-					blockPos.getZ() + 0.5, // Z coordinate (center of block)
-					drop
-			);
-			itemEntity.spawnAtLocation(serverLevel, drop);
-
-			// Apply item damage
-			ItemStack itemInHand = player.getActiveItem();
-			itemInHand.hurtAndBreak(1, (LivingEntity)player, player.getEquipmentSlotForItem(itemInHand));
-
-			return false; // Cancel event
+			return true; // Pass event
 		});
 
-		// TODO: Implement randomized natural block drops
+		// Block drop event
+		BlockEvents.GET_DROPS.register((state, level, pos, blockEntity, breaker, tool) -> {
+			boolean randomizeBlockDropsGameRule = level.getGameRules().get(Randomizer.RANDOMIZE_BLOCK_DROPS_BOOLEAN_GAMERULE);
+
+			if (randomizeBlockDropsGameRule)
+				return new ArrayList<>(List.of(new ItemStack(blockDrops.getOrDefault(state.getBlock(), null))));
+
+			return new ArrayList<>();
+		});
 
 	}
 
