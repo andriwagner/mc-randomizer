@@ -5,13 +5,14 @@
 	"name": "Randomizer",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"Andri Wagner"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": "https://github.com/andriwagner/mc-randomizer",
+		"issues": "https://github.com/andriwagner/mc-randomizer/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/randomizer/icon.png",
 	"environment": "*",
 	"entrypoints": {

@@ -1,0 +1,5 @@
+{
+  "gamerule.category.randomizer.randomizer": "Randomizer",
+  "gamerule.randomizer.block_drops": "Randomize block drops",
+  "gamerule.randomizer.creative_mode_drops": "Do creative mode drops"
+}

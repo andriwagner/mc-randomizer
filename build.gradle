@@ -53,6 +53,7 @@ java {
 }
 
 jar {
+	archiveAppendix = project.minecraft_version
 	def projectName = project.name
 	inputs.property "projectName", projectName
 
