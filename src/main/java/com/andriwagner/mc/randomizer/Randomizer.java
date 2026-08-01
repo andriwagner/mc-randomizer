@@ -1,6 +1,6 @@
 package com.andriwagner.mc.randomizer;
 
-import com.andriwagner.mc.randomizer.event.BlockEvents;
+import com.andriwagner.mc.randomizer.event.BlockBehaviourEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -59,16 +59,15 @@ public class Randomizer implements ModInitializer {
 			return true; // Pass event
 		});
 
-		// Block drop event
-		BlockEvents.GET_DROPS.register((state, level, pos, blockEntity, breaker, tool) -> {
-			boolean randomizeBlockDropsGameRule = level.getGameRules().get(Randomizer.RANDOMIZE_BLOCK_DROPS_BOOLEAN_GAMERULE);
+		// Block get drop event
+		BlockBehaviourEvents.GET_DROPS.register((state, params) -> {
+			boolean randomizeBlockDropsGameRule = params.getLevel().getGameRules().get(Randomizer.RANDOMIZE_BLOCK_DROPS_BOOLEAN_GAMERULE);
 
 			if (randomizeBlockDropsGameRule)
 				return new ArrayList<>(List.of(new ItemStack(blockDrops.getOrDefault(state.getBlock(), null))));
 
 			return new ArrayList<>();
 		});
-
 	}
 
 	public void randomizeBlockDrops(long seed) {

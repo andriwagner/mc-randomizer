@@ -3,7 +3,7 @@
 	"package": "com.andriwagner.mc.randomizer.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"BlockMixin"
+		"BlockBehaviourMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
