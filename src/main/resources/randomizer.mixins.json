@@ -3,7 +3,8 @@
 	"package": "com.andriwagner.mc.randomizer.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"BlockBehaviourMixin"
+		"BlockBehaviourMixin",
+		"LivingEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

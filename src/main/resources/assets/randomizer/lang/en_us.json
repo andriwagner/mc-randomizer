@@ -1,5 +1,9 @@
 {
   "gamerule.category.randomizer.randomizer": "Randomizer",
+  "gamerule.category.randomizer.randomizer_misc": "Randomizer Miscellaneous",
   "gamerule.randomizer.block_drops": "Randomize block drops",
-  "gamerule.randomizer.creative_mode_drops": "Do creative mode drops"
+  "gamerule.randomizer.creative_mode_drops": "Do creative mode drops",
+  "gamerule.randomizer.mob_drops": "Randomize mob drops",
+  "gamerule.randomizer.ignore_correct_tool": "Ignore correct tool",
+  "gamerule.randomizer.log_to_chat": "Log to chat"
 }
