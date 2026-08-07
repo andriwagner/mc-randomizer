@@ -1,1 +1,1 @@
-# Randomizer
+# Minecraft Randomizer

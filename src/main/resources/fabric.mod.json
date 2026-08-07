@@ -3,24 +3,24 @@
 	"id": "randomizer",
 	"version": "${version}",
 	"name": "Randomizer",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Randomizer mod",
 	"authors": [
 		"Andri Wagner"
 	],
 	"contact": {
 		"homepage": "",
-		"sources": "https://github.com/andriwagner/mc-randomizer",
-		"issues": "https://github.com/andriwagner/mc-randomizer/issues"
+		"sources": "https://github.com/andriwagner/minecraft-randomizer",
+		"issues": "https://github.com/andriwagner/minecraft-randomizer/issues"
 	},
 	"license": "MIT",
 	"icon": "assets/randomizer/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.andriwagner.mc.randomizer.Randomizer"
+			"com.andriwagner.randomizer.Randomizer"
 		],
 		"fabric-datagen": [
-			"com.andriwagner.mc.randomizer.RandomizerDataGenerator"
+			"com.andriwagner.randomizer.RandomizerDataGenerator"
 		]
 	},
 	"mixins": [

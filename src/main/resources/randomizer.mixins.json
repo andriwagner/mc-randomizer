@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.andriwagner.mc.randomizer.mixin",
+	"package": "com.andriwagner.randomizer.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
 		"BlockBehaviourMixin",

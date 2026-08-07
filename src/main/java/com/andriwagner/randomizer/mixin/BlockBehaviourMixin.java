@@ -1,6 +1,6 @@
-package com.andriwagner.mc.randomizer.mixin;
+package com.andriwagner.randomizer.mixin;
 
-import com.andriwagner.mc.randomizer.event.BlockBehaviourEvents;
+import com.andriwagner.randomizer.event.BlockBehaviourEvents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;

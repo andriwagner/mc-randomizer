@@ -1,7 +1,7 @@
-package com.andriwagner.mc.randomizer;
+package com.andriwagner.randomizer;
 
-import com.andriwagner.mc.randomizer.event.BlockBehaviourEvents;
-import com.andriwagner.mc.randomizer.event.LivingEntityEvents;
+import com.andriwagner.randomizer.event.BlockBehaviourEvents;
+import com.andriwagner.randomizer.event.LivingEntityEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -72,8 +72,6 @@ public class Randomizer implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Hello Fabric world!");
-
 		// Server loaded event
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 			randomizeBlockDrops(server.overworld().getSeed());
@@ -137,9 +135,8 @@ public class Randomizer implements ModInitializer {
 		// Entity kill event
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((level, entity, livingEntity, source) -> {
 
-			if (entity instanceof ServerPlayer) {
-				ServerPlayer player = (ServerPlayer) entity;
-				boolean logToChatGameRule = level.getLevel().getGameRules().get(Randomizer.LOG_TO_CHAT_BOOLEAN_GAMERULE);
+			if (entity instanceof ServerPlayer player) {
+                boolean logToChatGameRule = level.getLevel().getGameRules().get(Randomizer.LOG_TO_CHAT_BOOLEAN_GAMERULE);
 				
 				if (logToChatGameRule) {
 					ResourceKey<LootTable> lootTable = mobDrops.getOrDefault(livingEntity.getType(), null);

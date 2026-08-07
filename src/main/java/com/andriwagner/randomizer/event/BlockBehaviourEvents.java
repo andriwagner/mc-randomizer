@@ -1,4 +1,4 @@
-package com.andriwagner.mc.randomizer.event;
+package com.andriwagner.randomizer.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
